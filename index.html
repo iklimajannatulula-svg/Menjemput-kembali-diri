@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e9e4d7">
+  <meta name="description" content="Perjalanan 30 hari menata ibadah, menjaga diri, bertumbuh dengan ilmu, dan merawat hati.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Menjemput Kembali Diri</title>
+  <style>
+    :root{--bg:#f5f2e9;--paper:#fffdf7;--ink:#35463b;--muted:#788477;--green:#718b72;--green2:#dce7d8;--line:#e6e2d7;--rose:#eadbd4;--gold:#c5a66b;--shadow:0 12px 32px #34433312}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif}
+    button,textarea{font:inherit} button{cursor:pointer}
+    .wrap{max-width:760px;margin:auto;padding:22px 16px 48px}
+    header{text-align:center;padding:20px 10px 18px}
+    .eyebrow{font-size:11px;letter-spacing:2px;color:var(--green);font-weight:800}
+    h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(30px,7vw,44px);line-height:1.08;margin:12px 0 8px}
+    .subtitle{color:var(--muted);font-family:Georgia,serif;font-style:italic;font-size:15px}
+    .ornament{color:var(--gold);font-size:20px;margin-top:12px}
+    .card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:18px;margin:12px 0;box-shadow:var(--shadow)}
+    .topline{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .daylabel{font-size:12px;letter-spacing:1.5px;color:var(--muted);font-weight:800}
+    .daynum{font:38px Georgia,serif;margin:3px 0}
+    .daynum small{font:15px system-ui;color:var(--muted)}
+    .progress{height:9px;background:#edf0e8;border-radius:99px;overflow:hidden;margin:14px 0 7px}
+    .progress>div{height:100%;width:0;background:linear-gradient(90deg,#829b7d,#b3c6a8);border-radius:99px;transition:width .2s}
+    .muted{color:var(--muted);font-size:13px}
+    .nav{display:flex;gap:9px;align-items:center}
+    .btn{border:1px solid var(--line);background:#fffdf8;color:var(--ink);padding:10px 14px;border-radius:13px;font-weight:700}
+    .btn.primary{background:var(--green);color:white;border-color:var(--green)}
+    .btn:disabled{opacity:.35;cursor:not-allowed}
+    .section-title{font:22px Georgia,serif;margin:0 0 3px}
+    .foundation{border-top:1px solid var(--line);padding:16px 0 5px}
+    .foundation:first-of-type{border-top:0}
+    .fhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+    .fhead strong{font:18px Georgia,serif}
+    .fhead small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+    .count{font-size:12px;color:var(--green);background:var(--green2);border-radius:99px;padding:5px 9px;white-space:nowrap}
+    label.task{display:flex;align-items:flex-start;gap:11px;padding:9px 2px;color:#4b594d;font-size:14px;line-height:1.35}
+    input[type=checkbox]{appearance:none;width:19px;height:19px;flex:0 0 19px;border:1.5px solid #a8b6a3;border-radius:6px;margin:0;position:relative;background:#fff}
+    input[type=checkbox]:checked{background:var(--green);border-color:var(--green)}
+    input[type=checkbox]:checked:after{content:"✓";position:absolute;color:white;font-size:14px;left:3px;top:-1px}
+    .task:has(input:checked) span{text-decoration:line-through;color:#9ba397}
+    textarea{width:100%;min-height:110px;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fffefa;color:var(--ink);resize:vertical;outline:none}
+    textarea:focus{border-color:#9aaf94}
+    .quote{background:#edf2e9;border-radius:16px;padding:15px;text-align:center;font:italic 16px/1.5 Georgia,serif;color:#526653}
+    .footer{text-align:center;color:var(--muted);font-size:11px;padding:15px 8px}
+    .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+    .actions .btn{flex:1}
+    .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#35463b;color:#fff;padding:10px 15px;border-radius:99px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+    .toast.show{opacity:1}
+    @media(min-width:600px){.wrap{padding-top:35px}.card{padding:22px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div class="eyebrow">A 30-DAY PERSONAL JOURNEY</div>
+    <h1>Menjemput Kembali<br>Diri Sendiri</h1>
+    <div class="subtitle">Pelan-pelan. Dengan sadar. Dengan istiqamah.</div>
+    <div class="ornament">✦ ❀ ✦</div>
+  </header>
+
+  <section class="card">
+    <div class="topline">
+      <div>
+        <div class="daylabel">PERJALANANMU</div>
+        <div class="daynum">Hari <span id="dayNumber">1</span> <small>/ 30</small></div>
+        <div class="muted" id="dateLabel"></div>
+      </div>
+      <div class="nav">
+        <button class="btn" id="prev" aria-label="Hari sebelumnya">‹</button>
+        <button class="btn" id="next" aria-label="Hari berikutnya">›</button>
+      </div>
+    </div>
+    <div class="progress"><div id="dayProgress"></div></div>
+    <div class="topline"><span class="muted">Progres hari ini</span><strong id="percent">0%</strong></div>
+    <div class="muted" id="countText">0 dari 16 kebiasaan ditandai</div>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title">Empat Fondasi</h2>
+    <p class="muted">Centang usaha yang sudah kamu lakukan. Tidak perlu sempurna untuk tetap melanjutkan.</p>
+    <div id="foundations"></div>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title">Jurnal Muhasabah</h2>
+    <p class="muted">Apa yang kamu syukuri hari ini? Apa yang ingin kamu perbaiki besok?</p>
+    <textarea id="journal" placeholder="Hari ini aku belajar bahwa..."></textarea>
+    <div class="muted" style="margin-top:7px" id="saved">Tersimpan otomatis di perangkat ini.</div>
+  </section>
+
+  <div class="quote">“Aku tidak ingin sekadar kembali menjadi diriku yang dahulu. Aku ingin menjadi hamba Allah yang lebih baik daripada diriku kemarin.”</div>
+
+  <section class="card">
+    <div class="topline"><div><h2 class="section-title">Perjalanan 30 Hari</h2><div class="muted">Pilih hari untuk melihat catatanmu.</div></div><strong id="overall">Hari 1/30</strong></div>
+    <div id="days" style="display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-top:15px"></div>
+    <div class="actions">
+      <button class="btn" id="export">Unduh catatan</button>
+      <button class="btn" id="reset">Reset semua progres</button>
+    </div>
+  </section>
+  <div class="footer">Dibuat sebagai pengingat, bukan alat untuk menghakimi diri sendiri.<br>Data disimpan di browser perangkat ini.</div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const groups=[
+ {title:"01. Kembali kepada Allah",sub:"Fondasi spiritual",items:["Menjaga salat lima waktu","Tilawah Al-Qur’an setiap hari","Berdoa dan berdzikir","Muhasabah setelah Isya"]},
+ {title:"02. Menjaga Kehormatan Diri",sub:"Fondasi penjagaan diri",items:["Menjaga aurat","Menjaga batasan interaksi","Menjaga privasi diri","Menjauhi hal yang menjauhkan dari Allah"]},
+ {title:"03. Bertumbuh dengan Ilmu",sub:"Fondasi intelektual",items:["Belajar dengan fokus","Membaca buku","Menulis catatan atau refleksi","Mengembangkan ilmu Biologi dan keislaman"]},
+ {title:"04. Merawat Diri",sub:"Fondasi keseimbangan",items:["Mengurangi penggunaan media sosial","Menjaga waktu istirahat","Memberi ruang untuk diri sendiri","Bersyukur dan mencatat kebaikan hari ini"]}
+];
+const KEY="menjemput-kembali-diri-v1";
+let state={current:1,days:{}};
+try{state={...state,...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch(e){}
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function dayData(n){return state.days[n]||(state.days[n]={checks:[],journal:""})}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}
+function render(){
+ const n=state.current,d=dayData(n),total=16,done=d.checks.length,pct=Math.round(done/total*100);
+ $("dayNumber").textContent=n;$("dayProgress").style.width=(n/30*100)+"%";$("percent").textContent=pct+"%";$("countText").textContent=done+" dari 16 kebiasaan ditandai";
+ $("dateLabel").textContent="Hari ke-"+n+" dalam perjalananmu";$("prev").disabled=n===1;$("next").disabled=n===30;$("overall").textContent="Hari "+n+"/30";
+ $("foundations").innerHTML="";
+ groups.forEach((g,gi)=>{
+  const section=document.createElement("div");section.className="foundation";
+  const head=document.createElement("div");head.className="fhead";
+  const title=document.createElement("div");title.innerHTML="<strong>"+g.title+"</strong><small>"+g.sub+"</small>";
+  const count=document.createElement("span");count.className="count";count.textContent=g.items.filter((_,j)=>d.checks.includes(gi*4+j)).length+"/4";
+  head.append(title,count);section.append(head);
+  g.items.forEach((item,j)=>{
+   const idx=gi*4+j,label=document.createElement("label");label.className="task";
+   const cb=document.createElement("input");cb.type="checkbox";cb.checked=d.checks.includes(idx);
+   cb.addEventListener("change",()=>{const set=new Set(dayData(n).checks);cb.checked?set.add(idx):set.delete(idx);dayData(n).checks=[...set].sort((a,b)=>a-b);save();render()});
+   const span=document.createElement("span");span.textContent=item;label.append(cb,span);section.append(label);
+  });$("foundations").append(section);
+ });
+ $("journal").value=d.journal;
+ $("saved").textContent="Tersimpan otomatis di perangkat ini.";
+ $("days").innerHTML="";
+ for(let i=1;i<=30;i++){
+  const b=document.createElement("button");b.className="btn";b.textContent=i;b.style.padding="9px 0";b.style.fontSize="13px";
+  if(i===n){b.style.background="var(--green)";b.style.color="white";b.style.borderColor="var(--green)"}
+  else if((state.days[i]?.checks||[]).length===16){b.style.background="var(--green2)"}
+  b.addEventListener("click",()=>{state.current=i;save();render()});$("days").append(b);
+ }
+}
+$("journal").addEventListener("input",e=>{dayData(state.current).journal=e.target.value;save();$("saved").textContent="Catatan tersimpan."});
+$("prev").onclick=()=>{state.current=Math.max(1,state.current-1);save();render()};
+$("next").onclick=()=>{state.current=Math.min(30,state.current+1);save();render()};
+$("export").onclick=()=>{
+ let out="30 HARI MENJEMPUT KEMBALI DIRI SENDIRI\n\n";
+ for(let i=1;i<=30;i++){const d=state.days[i]||{checks:[],journal:""};out+="HARI "+i+"\n";groups.forEach((g,gi)=>g.items.forEach((x,j)=>out+=(d.checks.includes(gi*4+j)?"[x] ":"[ ] ")+x+"\n"));out+="Muhasabah: "+(d.journal||"-")+"\n\n"}
+ const blob=new Blob([out],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="catatan-30-hari.txt";a.click();URL.revokeObjectURL(url);toast("Catatan berhasil disiapkan.");
+};
+$("reset").onclick=()=>{if(confirm("Hapus seluruh checklist dan jurnal 30 hari? Tindakan ini tidak bisa dibatalkan.")){state={current:1,days:{}};save();render();toast("Progres direset.")}};
+render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
